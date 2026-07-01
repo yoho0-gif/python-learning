@@ -32,6 +32,9 @@ def delete_todo():
 #修改功能
 def edit_todo():
     view_todos()
+    if not todos:
+        print("目前無代辦項目")
+        return
     index = int(input("請輸入要修改的項目:"))
     if 1 <= index <= len(todos):
         new_item = input("請輸入新的代辦事項:")
@@ -39,8 +42,18 @@ def edit_todo():
         print(f"已修改成：{new_item}")
     else:
         print("無該代辦選項")
+def load_todos():
+    with open("todo.txt", "r", encoding="utf-8") as file:  
+        lines = file.readlines()
+        for line in lines:
+            todos.append(line.strip())
+def save_todos():
+    with open("todo.txt", "w", encoding="utf-8") as file:
+        for item in todos:
+            file.write(item + "\n")
+        
 
-    
+load_todos()    
 
 while True:
     show_menu()
@@ -49,10 +62,13 @@ while True:
         view_todos()
     elif choice == "2":
         add_todo()
+        save_todos()
     elif choice == "3":
         delete_todo()
+        save_todos()
     elif choice == "4":
-        edit_todo()    
+        edit_todo()
+        save_todos()    
     elif choice == "5":
         break
     else:
