@@ -1,13 +1,37 @@
-import requests
+from unittest import result
 
-url = "https://jsonplaceholder.typicode.com/todos/1"
 
-response = requests.get(url)
+student = {
+    "name": "Tom",
+    "age": 20,
+    "score": 95
+}
+print(student["name"], student["age"], student["score"])
 
-print(type(response))
-print(response)
+book = {
+    "title": "Python",
+    "price": 650,
+    "author": "David"
+}
+print("書名:", book["title"], "價格:", book["price"], "作者:", book["author"])
 
-data = response.json()
+data = {
+    "status": "success",
+    "result": {
+        "temperature": 30,
+        "humidity": 75
+    }
+}
+print(data["result"]["temperature"])
 
-print(type(data))
-print(data)
+response = {
+    "choices": [
+        {
+            "message": {
+                "role": "assistant",
+                "content": "Hello!"
+            }
+        }
+    ]
+}
+print(response["choices"][0]["message"]["content"])
