@@ -1,11 +1,16 @@
 from google import genai
+from google.genai import types
 from config import API_KEY
+
 
 client = genai.Client(api_key=API_KEY)
 
-def ask_ai(prompt):
+def ask_ai(history, system_prompt):
     response = client.models.generate_content(
-        model="gemini-3.5-flash", contents=prompt
+        model="gemini-3.5-flash", 
+        contents=history,
+        config=types.GenerateContentConfig(
+            system_instruction=system_prompt
+        )
     )
     return response.text
-
