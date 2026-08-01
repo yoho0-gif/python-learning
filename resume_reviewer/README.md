@@ -28,7 +28,7 @@ resume-reviewer/
 ├── config.py
 ├── display.py
 ├── gemini_client.py
-├── resume_reader.py
+├── document_loader.py
 ├── report_writer.py
 ├── prompt_templates.py
 ├── requirements.txt
@@ -58,6 +58,8 @@ Windows PowerShell：
 
 ```bash
 pip install -r requirements.txt
+pip install google-genai
+pip install python-dotenv
 ```
 
 ---
@@ -123,6 +125,7 @@ review_result.md
 - Google Gemini API
 - google-genai
 - python-dotenv
+- pypdf
 
 ---
 
@@ -141,7 +144,7 @@ review_result.md
 
 ## 未來規劃
 
-- [ ] 支援 PDF 履歷
+- [v] 支援 PDF 履歷
 - [ ] 支援 DOCX 履歷
 - [ ] 自訂輸出檔名
 - [ ] 串流（Streaming）回覆
