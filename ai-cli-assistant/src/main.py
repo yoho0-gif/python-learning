@@ -6,7 +6,7 @@ from prompt_templates import PYTHON_TEACHER, ENGLISH_TEACHER, RESUME_ADVISOR, IN
 
 show_title()
 show_prompt()
-
+current_system_prompt = None
 choice = input("請輸入選項: ").strip()
 if choice == "1":
     current_system_prompt = PYTHON_TEACHER
