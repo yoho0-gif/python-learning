@@ -1,43 +1,67 @@
-你好！我是你的資深科技業履歷顧問。我擁有多年協助工程師、產品經理（PM）、資料科學家等科技人才錄取 FAANG 及國內外一線科技廠的經驗。
+你好，我是你的資深科技業履歷顧問。
 
-為了給你最精準、最具體的個人化建議，**請在下方貼上你的履歷內容（可隱去姓名、公司名等敏感資訊），並告知你「目標申請的職缺/公司」**。
+這份履歷採用了**功能型履歷（Functional Resume）**的結構。雖然功能型履歷能很好地凸顯你的「可轉移技能（Transferable Skills）」，但在現代科技業的招募流程中，這種格式對於 **ATS（自動履歷篩選系統）**並不友善，且容易讓招募人員懷疑你是否在隱藏職涯空白期。
 
-在收到你的履歷之前，我先以一個**「典型的中階後端工程師履歷」**為例，展示我將如何為你進行深度解析。當你提供履歷後，我會用同樣專業、具體且可執行的標準為你修改：
+如果你的目標是轉戰**科技業（Tech Industry）**或**科技新創公司**，以下是我為你整理的專業診斷與具體修改建議：
 
 ---
-
-### 【範例解析：中階後端工程師履歷】
 
 ## 優點
-1. **技術棧（Tech Stack）標示清晰**：在履歷頂端與專案描述中，清楚標示了 Python, Django, PostgreSQL, AWS 等核心技術，能讓 HR 在 3 秒內對上關鍵字。
-2. **具備雲端與系統架構經驗**：提及將服務部署至 AWS (EC2/S3) 的經驗，這對中高階工程師來說是加分項，顯示不僅會寫 code，也懂基礎基礎建設。
-3. **有團隊協作紀錄**：提到使用 Git/GitHub 進行 Version Control，並與前端工程師協作，展現了團隊合作能力。
 
-## 缺點
-1. **缺乏「量化成果」（Metrics）**：專案描述多為「負責維護系統」、「開發新功能」，這屬於「職責描述」而非「個人成就」。缺乏數據支持，無法看出你的貢獻價值。
-2. **未展現解決複雜技術問題的能力**：履歷中沒有提及你如何優化效能、處理高併發（High Concurrency）或解決系統瓶頸（Bottleneck）。
-3. **動詞使用流於被動**：頻繁使用 "Responsible for..." 或 "Assisted in..."，缺乏強而有力的科技業主動動詞（如：Optimized, Redesigned, Spearheaded）。
-
-## 修改建議
-* **建議 1：使用 STAR 原則重寫專案經歷，並加入量化數據。**
-  * *修改前*：負責優化資料庫查詢，提升網站速度。
-  * *修改後*：藉由重構 PostgreSQL 索引與優化 ORM 查詢語法，**將 API 平均回應時間（Latency）降低 40%**，並在高流量期間**減少資料庫 CPU 使用率達 25%**。
-* **建議 2：強化系統規模與複雜度描述。**
-  * 在描述專案時，加上系統規模。例如：「設計並維護每日活躍用戶（DAU）達 50k 的電商 API 服務」。
-* **建議 3：提升動詞強度。**
-  * 將 "Helped design the database..." 改為 "**Architected** the relational database schema to support 10+ microservices..."。
-
-## 適合職缺
-* **Backend Engineer / Senior Backend Engineer (Python/Django)**：適合中高階後端開發職位。
-* **Cloud/DevOps Systems Engineer**：若能再強化 AWS 相關自動化（如 Terraform、CI/CD），可往雲端系統工程師發展。
-* **Technical Lead (SaaS Startup)**：若有帶領 junior 的經驗，在新型新創公司有機會競爭帶團隊的職能。
+1. **量化數據具體（Quantifiable Metrics）**：
+   你非常好地使用了具體數字（如：150位客戶、25位志工、20位諮商師、100個家庭），這在科技業是非常受到重視的結果導向（Result-oriented）寫法。
+2. **展現出色的組織與協調能力**：
+   從「協調 20 名諮商師與 100 個家庭」以及「管理 25 位志工」可以看出，你具備強大的**專案管理（Project Coordination）**、**資源調配（Resource Allocation）**與**利害關係人管理（Stakeholder Management）**能力。
+3. **優異的學術表現**：
+   GPA 表現亮眼（3.8 / 3.5），且獲得 Dean's List 等榮譽，這證明了你的學習敏銳度（Learning Agility）與解決問題的能力。
 
 ---
 
-### 換你了！
-請貼上你的**履歷內容**，並告訴我：
-1. **你目前預計投遞的職缺名稱（例如：前端工程師、產品經理、資料分析師）**
-2. **你的年資（年）**
-3. **目標公司類型（例如：外商、台廠、新創、FAANG）**
+## 缺點
 
-我將立即為你量身打造專屬的履歷診斷！
+1. **履歷格式過時（非 ATS 友善）**：
+   現代科技業 90% 以上使用 ATS 系統。功能型履歷會打亂時間線，導致系統無法正確解析你的工作年資與職位對應關係。
+2. **缺乏科技工具與專業術語（Keywords）**：
+   履歷中提到「維護客戶資料庫（Maintained client databases）」，但沒有寫出具體工具（例如：SQL, Salesforce, Excel, Airtable 等）。在科技業，這會被視為資訊能力不足。
+3. **職能描述偏向「行政庶務」，缺乏「商業影響力（Business Impact）」**：
+   多數描述僅停留在「執行了什麼動作（Assisted, Managed, Oversaw）」，卻沒有說明這些動作帶來了什麼成果（例如：提升了多少滿意度、優化了多少流程效率）。
+
+---
+
+## 修改建議
+
+### 1. 轉換為「混合型履歷（Hybrid Resume）」
+保留你的技能分類，但必須與工作經歷（Employment History）做明確的時間與職責連結。
+* **結構調整順序**：個人聯絡資訊 -> 專業簡介（Summary）-> 工作經歷（內含量化成就）-> 教育背景 -> 技能與工具（Skills & Tools）。
+
+### 2. 使用 STAR 原則重寫經歷（科技業關鍵字轉換）
+將原本偏向社工/教育的語言，轉換為科技業聽得懂的**商業語言**：
+
+* **原句**：*Determined work placement for 150 special needs adult clients.*
+* **修改後**：*Optimized placement processes for 150+ diverse clients, aligning individual skillsets with organizational needs to improve successful placement rate by X%.* (強調流程優化與匹配率)
+
+* **原句**：*Maintained client databases and records.*
+* **修改後**：*Managed and updated client databases using [具體工具，如: Excel / CRM system], ensuring 100% data accuracy and compliance with privacy regulations.* (強調工具使用與合規性)
+
+* **原句**：*Coordinated service assignments for 20 part-time counselors and 100 client families.*
+* **修改後**：*Led cross-functional coordination between 20+ counselors and 100+ client families, improving resource utilization and communication efficiency.* (強調跨部門協調與資源利用率)
+
+### 3. 新增「技能（Skills）」區塊
+在履歷底部或側邊加上一個獨立區塊，列出你熟悉的工具與軟實力：
+* **專業技能**：Project Management, Stakeholder Management, Customer Relationship Management (CRM), Resource Planning.
+* **科技工具**：G Suite / Google Workspace, MS Office (Excel, Word), Slack, Trello / Asana (若有專案管理工具經驗), Salesforce (或其他資料庫軟體)。
+
+---
+
+## 適合職缺
+
+憑藉你強大的**溝通協調**、**客戶服務（Empathy）**與**多工管理（Multi-tasking）**能力，你非常適合科技業中「非技術性（Non-technical）」但極度需要人際溝通與專案執行的角色：
+
+1. **客戶成功專員（Customer Success Specialist / Associate）**
+   * **原因**：科技業（特別是 SaaS 軟體公司）非常需要具備高度同理心、能引導客戶、解決客戶問題並維持長期關係的人才。你過去與 100+ 脆弱家庭溝通並幫忙尋找資源的經驗是極大的加分項。
+2. **營運協調員 / 專案助理（Operations Coordinator / Project Coordinator）**
+   * **原因**：你曾管理 25 位志工、協調 20 位諮商師。這種排班、資源調度、跨部門溝通的經驗，能直接轉移到科技公司的營運團隊或 PMO（專案管理辦公室）。
+3. **教育科技（EdTech）導入專員（Implementation Specialist / Customer Training）**
+   * **原因**：你的教育背景（Early Childhood Development & Elementary Education）是你的護城河。投遞如 Coursera, Duolingo, 或其他 B2B 教育軟體公司，協助學校或企業客戶導入系統，你的背景會非常吃香。
+4. **人資/員工體驗協調員（HR / People Operations Coordinator）**
+   * **原因**：你具備輔導（Counseling）與照顧特殊需求的背景，代表你具備極高的情商與危機處理能力，非常適合科技公司內部注重多元與包容（DEI）的 HR 團隊。

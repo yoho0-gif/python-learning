@@ -80,6 +80,30 @@ python main.py
 
 ---
 
+## 執行流程
+
+```text
+輸入檔案
+
+↓
+
+自動判斷副檔名
+
+↓
+
+TXT Reader / PDF Reader
+
+↓
+
+Gemini AI
+
+↓
+
+Markdown Report
+```
+
+---
+
 ## 使用方式
 
 啟動程式後，可以：

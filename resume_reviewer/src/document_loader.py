@@ -48,7 +48,7 @@ def load_resume(path):
 
 def load_document(path):
     if not os.path.exists(path):
-        print(f"❌ 錯誤：找不到檔案 '{path}'")
+        print(f"錯誤：找不到檔案 '{path}'")
         return None
 
     _, ext = os.path.splitext(path)
