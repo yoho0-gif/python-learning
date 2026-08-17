@@ -46,7 +46,7 @@ def load_txt(path):
         return None
 
 
-def load_document(path):
+def load_documents(path):
     if not os.path.exists(path):
         print(f"錯誤：找不到檔案 '{path}'")
         return None
@@ -64,4 +64,3 @@ def load_document(path):
         print(f"不支援的檔案格式：'{ext}'（僅支援 .txt, .md, .pdf）")
         return None
 
-load_document("rag_document_chat/sample/Labor_Standards_Act.pdf")
