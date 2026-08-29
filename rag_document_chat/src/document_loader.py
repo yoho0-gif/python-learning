@@ -12,12 +12,10 @@ def load_pdf(path):
         total_pages = len(reader.pages)
 
         for index, page in enumerate(reader.pages, start=1):
-            print(f"正在讀取第 {index}/{total_pages} 頁...")
-            
             text = page.extract_text()
             if text:
                 extracted_text.append(text)
-
+        print(f"成功擷取，共 {total_pages} 頁，擷取到 {len(extracted_text)} 頁有文字內容。")
         full_text = "\n".join(extracted_text).strip()
 
         if not full_text:

@@ -1,57 +1,66 @@
-from gemini_client import ask_question
 from document_loader import load_documents
-from text_splitter import split_text, split_text_by_article
-from keyword_retriever import retrieve_chunks
-from semantic_retriever import retrieve_similar_chunks
-from embedding_manager import build_embeddings
+from text_splitter import split_text_by_article
+from embedding import create_embedding
+from faiss_store import add_chunks, search
+from gemini_client import ask_question
 
 
 def main():
-    document_text = load_documents("rag_document_chat/sample/Labor_Standards_Act.pdf")
+    document_text = load_documents(
+        "rag_document_chat/sample/Labor_Standards_Act.pdf"
+    )
 
     if not document_text:
         print("無法讀取內容！")
         return
-    
+
     chunks = split_text_by_article(document_text)
-    chunks = build_embeddings(
-        chunks,
-        "rag_document_chat/sample/vectors.json"
+    
+    for chunk in chunks:
+        chunk["embedding"] = create_embedding(
+            chunk["text"]
+        )
+    
+    add_chunks(chunks)    
+    query = input("請輸入問題：").strip()
+    
+    if not query:
+        print("請輸入問題！")
+        return
+    
+    query_embedding = create_embedding(query)    
+    results = search(
+        query_embedding,
+        top_k=3
     )
 
+    documents = results["documents"][0]
+    ids = results["ids"][0]
+    distances = results["distances"][0]
 
-    query = input("請輸入問題：").strip()
+    print("\n=== Vector Search 結果 ===")
 
-    if not query: 
-        print("請輸入問題！") 
-        return
-
-
-    results = retrieve_similar_chunks(chunks,query,top_k=3)
-
-    print("\n=== Semantic Search 結果 ===\n")
-
-    if not results:
-        print("沒有找到相關的條文。")
-        return
-
-    for item in results:
-        chunk = item["chunk"]
-        score = item["score"]
- 
-        print(f"【Chunk ID: {chunk['id']} | 相關分數 (Score): {score:.4f}】")
-        print(chunk["text"])
+    for chunk_id, document, distance in zip(
+        ids,
+        documents,
+        distances
+    ):
+        print(
+            f"\n【Chunk {chunk_id} | "
+            f"Distance: {distance:.4f}】"
+        )
+        print(document)
         print("-" * 50)
 
-    context = "\n\n".join( item["chunk"]["text"] for item in results )
-
+    context = "\n\n".join(documents)
     answer = ask_question(
         query,
         context
     )
-    
-    answer = ask_question(query, context)
-    print(f"\n=== AI 回答 ===\n{answer}")
+
+    print("\n=== AI 回答 ===")
+    print(answer)
+
 
 if __name__ == "__main__":
     main()
