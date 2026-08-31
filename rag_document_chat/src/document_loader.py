@@ -1,6 +1,7 @@
 import os
 from pypdf import PdfReader
 
+
 def load_pdf(path):
     if not os.path.exists(path):
         print(f"錯誤：找不到 PDF 檔案 '{path}'")
@@ -12,14 +13,17 @@ def load_pdf(path):
         total_pages = len(reader.pages)
 
         for index, page in enumerate(reader.pages, start=1):
+            print(
+                f"正在讀取第 "
+                f"{index}/{total_pages} 頁..."
+            )
             text = page.extract_text()
             if text:
                 extracted_text.append(text)
-        print(f"成功擷取，共 {total_pages} 頁，擷取到 {len(extracted_text)} 頁有文字內容。")
         full_text = "\n".join(extracted_text).strip()
 
         if not full_text:
-            print(f"警告：無法從 '{path}' 擷取文字（可能是圖片或掃描檔 PDF）")
+            print(f"警告：無法從 '{path}' 擷取文字")
             return None
         return full_text
 
@@ -31,11 +35,11 @@ def load_pdf(path):
 def load_txt(path):
     try:
         with open(path, 'r', encoding="utf-8") as file:
-            resume_content = file.read()
-            if not resume_content.strip():
+            content = file.read()
+            if not content.strip():
                 print(f"警告：檔案 '{path}' 內容為空")
                 return None
-        return resume_content
+        return content
     except FileNotFoundError:
         print(f"找不到檔案: {path}")
         return None
@@ -62,3 +66,42 @@ def load_documents(path):
         print(f"不支援的檔案格式：'{ext}'（僅支援 .txt, .md, .pdf）")
         return None
 
+def load_documents_from_folder(folder_path):
+
+    if not os.path.exists(folder_path):
+        print(
+            f"找不到資料夾：{folder_path}"
+        )
+        return []
+
+    documents = []
+
+    for filename in os.listdir(folder_path):
+
+        path = os.path.join(
+            folder_path,
+            filename
+        )
+
+        if not os.path.isfile(path):
+            continue
+
+        _, ext = os.path.splitext(filename)
+        ext = ext.lower()
+
+        if ext not in [".pdf", ".txt", ".md"]:
+            continue
+
+        print("\n" + "=" * 50)
+        print(f"正在讀取文件：{filename}")
+        print("=" * 50)
+
+        text = load_documents(path)
+
+        if text:
+            documents.append({
+                "source": filename,
+                "text": text
+            })
+
+    return documents

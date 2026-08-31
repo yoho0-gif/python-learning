@@ -14,8 +14,12 @@ def main():
         print("無法讀取內容！")
         return
 
-    chunks = split_text_by_article(document_text)
+    source = "Labor_Standards_Act.pdf"
 
+    chunks = split_text_by_article(
+    document_text,
+    source=source
+    )
     store = load_store()
 
     if store is None:
@@ -65,30 +69,28 @@ def main():
         query_embedding,
         top_k=3
     )
-
-    documents = results["documents"][0]
-    ids = results["ids"][0]
-    distances = results["distances"][0]
-
+    
     print("\n=== Vector Search 結果 ===")
 
-    for chunk_id, document, distance in zip(
-        ids,
-        documents,
-        distances
-    ):
-        print(
-            f"\n【第 {chunk_id} 條 | "
-            f"Distance: {distance:.4f}】"
-        )
-        print(document)
+    for result in results:
+
+        chunk = result["chunk"]
+        distance = result["distance"]
+
+        print(f"\n【{chunk['article']}】")
+        print(f"來源：{chunk['source']}")
+        print(f"Distance: {distance:.4f}")
+        print(chunk["text"])
         print("-" * 50)
 
-    context = "\n\n".join(documents)
-    answer = ask_question(
-        query,
-        context
-    )
+    context_parts = []
+
+    for result in results:
+        chunk = result["chunk"]
+        context_parts.append(f"""來源：{chunk['source']}條文：{chunk['article']}{chunk['text']}""")
+
+    context = "\n\n".join(context_parts)
+    answer = ask_question(query,context)
 
     print("\n=== AI 回答 ===")
     print(answer)

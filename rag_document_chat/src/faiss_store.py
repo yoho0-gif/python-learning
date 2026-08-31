@@ -3,8 +3,8 @@ import numpy as np
 import json
 import os
 
-INDEX_PATH = "rag_document_chat/sample/faiss_index.bin"
-TEXTS_PATH = "rag_document_chat/sample/faiss_texts.json"
+INDEX_PATH = "rag_document_chat/faiss_index.bin"
+TEXTS_PATH = "rag_document_chat/faiss_texts.json"
 
 stored_texts = []
 
@@ -65,19 +65,14 @@ def search(index, chunks, query_embedding, top_k=3):
     top_k = min(top_k,len(chunks))
     distances, indices = index.search(query_arr, top_k)
 
-    documents = []
-    ids = []
-    valid_distances = []
+    results = []
+    
+    for idx, distance in zip(indices[0], distances[0]):
+        if idx == -1:
+            continue
+        results.append({
+            "chunk": chunks[idx],
+            "distance": float(distance)
+        })
 
-    for dix, distance in zip(indices[0], distances[0]):
-        if dix != -1:
-            chunk = chunks[dix]
-            documents.append(chunk["text"])
-            ids.append(chunk["id"])
-            valid_distances.append(float(distance))
-
-    return {
-        "documents": [documents],
-        "ids": [ids],
-        "distances": [valid_distances]
-    }
+    return results
