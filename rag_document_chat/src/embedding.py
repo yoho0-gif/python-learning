@@ -25,7 +25,7 @@ def create_embedding(text):
             error_str = str(e)
             if "429" in error_str or "RESOURCE_EXHAUSTED" in error_str:
                 print(
-                    f" 觸發 API 限流 (429)，等待 10 秒後重試 ({attempt + 1}/3)..."
+                    f" API 限流 (429)，等待 10 秒後重試 ({attempt + 1}/3)..."
                 )
                 time.sleep(10)
             else:

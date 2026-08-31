@@ -1,7 +1,7 @@
 from document_loader import load_documents
 from text_splitter import split_text_by_article
 from embedding import create_embedding
-from faiss_store import add_chunks, search
+from faiss_store import add_chunks, search, load_store
 from gemini_client import ask_question
 
 
@@ -15,13 +15,39 @@ def main():
         return
 
     chunks = split_text_by_article(document_text)
+
+    store = load_store()
+
+    if store is None:
+
+        print("\n找不到既有 Vector Store")
+        print("開始建立 Embedding...\n")
+
+        for index, chunk in enumerate(
+            chunks,
+            start=1
+        ):
+
+            print(
+                f"正在建立 Embedding："
+                f"{index}/{len(chunks)}"
+            )
+
+            embedding = create_embedding(
+                chunk["text"]
+            )
+
+            if embedding is not None:
+                chunk["embedding"] = embedding
     
-    for chunk in chunks:
-        chunk["embedding"] = create_embedding(
-            chunk["text"]
-        )
-    
-    add_chunks(chunks)    
+        add_chunks(chunks)
+
+        store = load_store()
+    else:
+            print("\n找到既有 Vector Store")
+
+    index, stored_chunks = store
+
     query = input("請輸入問題：").strip()
     
     if not query:
@@ -29,7 +55,13 @@ def main():
         return
     
     query_embedding = create_embedding(query)    
+    if query_embedding is None:
+        print("無法建立問題的 Embedding！")
+        return
+    
     results = search(
+        index,
+        stored_chunks,
         query_embedding,
         top_k=3
     )
@@ -46,7 +78,7 @@ def main():
         distances
     ):
         print(
-            f"\n【Chunk {chunk_id} | "
+            f"\n【第 {chunk_id} 條 | "
             f"Distance: {distance:.4f}】"
         )
         print(document)
