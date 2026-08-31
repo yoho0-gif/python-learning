@@ -3,8 +3,8 @@ import numpy as np
 import json
 import os
 
-INDEX_PATH = "rag_document_chat/faiss_index.bin"
-TEXTS_PATH = "rag_document_chat/faiss_texts.json"
+INDEX_PATH = "rag_document_chat/sample/faiss_index.bin"
+TEXTS_PATH = "rag_document_chat/sample/faiss_texts.json"
 
 stored_texts = []
 
