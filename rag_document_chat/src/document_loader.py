@@ -1,5 +1,6 @@
 import os
 from pypdf import PdfReader
+from document_hash import calculate_file_hash
 
 
 def load_pdf(path):
@@ -11,12 +12,8 @@ def load_pdf(path):
         reader = PdfReader(path)
         extracted_text = []
         total_pages = len(reader.pages)
-
-        for index, page in enumerate(reader.pages, start=1):
-            print(
-                f"正在讀取第 "
-                f"{index}/{total_pages} 頁..."
-            )
+        print(f"正在讀取 {total_pages} 頁文件")
+        for page in reader.pages:
             text = page.extract_text()
             if text:
                 extracted_text.append(text)
@@ -99,9 +96,14 @@ def load_documents_from_folder(folder_path):
         text = load_documents(path)
 
         if text:
+            file_hash = calculate_file_hash(path)
+
             documents.append({
                 "source": filename,
+                "hash": file_hash,
                 "text": text
             })
+
+            print(f"Hash：{file_hash[:16]}...")
 
     return documents

@@ -1,99 +1,95 @@
-from document_loader import load_documents
-from text_splitter import split_text_by_article
+from document_loader import load_documents_from_folder
+from incremental_indexer import update_index
 from embedding import create_embedding
-from faiss_store import add_chunks, search, load_store
+from faiss_store import search, load_store
 from gemini_client import ask_question
+from conversation import add_user_message, add_ai_message, get_recent_history, clear_history
 
+DOCUMENT_FOLDER = ("rag_document_chat/documents")
 
 def main():
-    document_text = load_documents(
-        "rag_document_chat/sample/Labor_Standards_Act.pdf"
-    )
 
-    if not document_text:
-        print("無法讀取內容！")
+    print("=" * 60)
+    print("Multi-Document RAG")
+    print("=" * 60)
+    documents = load_documents_from_folder(DOCUMENT_FOLDER)
+
+    if not documents:
+        print("沒有找到任何文件！")
         return
 
-    source = "Labor_Standards_Act.pdf"
-
-    chunks = split_text_by_article(
-    document_text,
-    source=source
-    )
+    print(f"\n目前共有 {len(documents)} 份文件")
+    print("\n=== 檢查文件變更 ===")
+    
+    update_index(documents)
     store = load_store()
 
     if store is None:
 
-        print("\n找不到既有 Vector Store")
-        print("開始建立 Embedding...\n")
-
-        for index, chunk in enumerate(
-            chunks,
-            start=1
-        ):
-
-            print(
-                f"正在建立 Embedding："
-                f"{index}/{len(chunks)}"
-            )
-
-            embedding = create_embedding(
-                chunk["text"]
-            )
-
-            if embedding is not None:
-                chunk["embedding"] = embedding
-    
-        add_chunks(chunks)
-
-        store = load_store()
-    else:
-            print("\n找到既有 Vector Store")
-
-    index, stored_chunks = store
-
-    query = input("請輸入問題：").strip()
-    
-    if not query:
-        print("請輸入問題！")
+        print("FAISS Index 建立失敗！")
         return
-    
-    query_embedding = create_embedding(query)    
-    if query_embedding is None:
-        print("無法建立問題的 Embedding！")
-        return
-    
-    results = search(
-        index,
-        stored_chunks,
-        query_embedding,
-        top_k=3
-    )
-    
-    print("\n=== Vector Search 結果 ===")
 
-    for result in results:
+    print("\nRAG Chat 已啟動")
+    print("輸入 exit 離開")
+    print("輸入 clear 清除對話")
+    print("-" * 50)
 
-        chunk = result["chunk"]
-        distance = result["distance"]
+    index, chunks = store
+    while True:
 
-        print(f"\n【{chunk['article']}】")
-        print(f"來源：{chunk['source']}")
-        print(f"Distance: {distance:.4f}")
-        print(chunk["text"])
-        print("-" * 50)
+        query = input("\nYou: ").strip()
 
-    context_parts = []
+        if not query:
+            print("請輸入問題！")
+            continue
 
-    for result in results:
-        chunk = result["chunk"]
-        context_parts.append(f"""來源：{chunk['source']}條文：{chunk['article']}{chunk['text']}""")
+        if query.lower() == "exit":
 
-    context = "\n\n".join(context_parts)
-    answer = ask_question(query,context)
+            print("感謝使用！")
+            break
 
-    print("\n=== AI 回答 ===")
-    print(answer)
+        if query.lower() == "clear":
+
+            clear_history()
+
+            print("對話紀錄已清除！")
+            continue
+
+        query_embedding = create_embedding(query)
+
+        if query_embedding is None:
+
+            print("無法建立問題 Embedding！")
+            continue
+
+        results = search(index, chunks, query_embedding, top_k=3)
+
+        if not results:
+
+            print("沒有找到相關內容！")
+            continue
+        
+        context_parts = []
+
+        print("\n=== 找到相關文件 ===")
+
+        for item in results:
+            chunk = item["chunk"]
+            distance = item["distance"]
+            print(f"\n來源：{chunk['source']}")
+            print(f"Distance: {distance:.4f}")
+
+            context_parts.append(f"""來源：{chunk['source']}{chunk['text']}""")
+            
+        context = "\n\n".join(context_parts)
+        recent_history = get_recent_history(limit=6)
+        answer = ask_question(query, context, recent_history)
+
+        print("\n=== AI 回答 ===")
+        print(answer)
+
+        add_user_message(query)
+        add_ai_message(answer)
 
 
 if __name__ == "__main__":

@@ -8,14 +8,14 @@ TEXTS_PATH = "rag_document_chat/faiss_texts.json"
 
 stored_texts = []
 
-def add_chunks(chunks):
+def build_chunks(chunks):
     valid_chunks = [
         chunk
         for chunk in chunks
         if chunk.get("embedding") is not None
     ]
     if not valid_chunks:
-        print("沒有可以儲存的 Chunk")
+        print("沒有可以建立的 Chunk")
         return
     
     embeddings = [chunk["embedding"] for chunk in valid_chunks]
@@ -39,9 +39,7 @@ def load_store():
     if not os.path.exists(TEXTS_PATH):
         return None
 
-    index = faiss.read_index(
-        INDEX_PATH
-    )
+    index = faiss.read_index(INDEX_PATH)
 
     with open(
         TEXTS_PATH,

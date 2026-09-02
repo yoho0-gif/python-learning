@@ -1,6 +1,6 @@
 rag_document_chat/src/.env
-rag_document_chat/sample/faiss_texts.json
-rag_document_chat/sample/faiss_index.bin
-rag_document_chat/sample/vector.json
+rag_document_chat/faiss_texts.json
+rag_document_chat/faiss_index.bin
+rag_document_chat/vector.json
 .venv
 .note.md

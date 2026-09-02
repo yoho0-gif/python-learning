@@ -35,7 +35,8 @@ def split_text(text, max_length=500, min_length=20):
     return chunks
 
 
-def split_text_by_article(text, source="Unknown"):
+def split_text_by_article(text, source=None):
+    
     articles = re.split(r'(?=\n第\s*[0-9一二三四五六七八九十]+\s*條)', text)
     
     chunks = []
@@ -70,6 +71,7 @@ def split_documents(documents):
     for document in documents:
 
         source = document["source"]
+        file_hash = document["hash"]
         text = document["text"]
 
         chunks = split_text_by_article(
@@ -80,7 +82,8 @@ def split_documents(documents):
         for chunk in chunks:
 
             chunk["id"] = chunk_id
-
+            chunk["source"] = source
+            chunk["file_hash"] = file_hash
             all_chunks.append(chunk)
 
             chunk_id += 1
