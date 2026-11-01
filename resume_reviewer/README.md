@@ -1,176 +1,80 @@
 # AI Resume Reviewer
 
-一個使用 Python 與 Google Gemini API 開發的 AI 履歷分析工具。
+以 Python 與 Google Gemini API 製作的命令列履歷分析工具。程式讀取 PDF、TXT 或 Markdown 履歷，請 Gemini 依照履歷內容提供優點、缺點、修改建議及適合職缺，並輸出 Markdown 報告。
 
-使用者可以讀取履歷檔案，或直接貼上履歷內容，由 AI 分析履歷並提供改善建議，同時將分析結果輸出為 Markdown 報告。
+## 功能
 
----
+- 讀取 `.pdf`、`.txt` 與 `.md` 履歷檔案。
+- 使用 Gemini 分析履歷並提供具體改善方向。
+- 將分析結果輸出至 `review_result.md`。
 
-## 功能特色
-
--  支援讀取 `.txt`、`.md` 履歷檔案
--  支援直接貼上履歷內容
--  使用 Google Gemini API 分析履歷
--  提供履歷優點、缺點與改善建議
--  推薦適合職缺
--  自動輸出 Markdown 分析報告
--  檔案不存在時提供錯誤提示
--  使用 `.env` 管理 API Key
-
----
-
-## 專案架構
+## 專案結構
 
 ```text
-resume-reviewer/
-│
-├── main.py
-├── config.py
-├── display.py
-├── gemini_client.py
-├── document_loader.py
-├── report_writer.py
-├── prompt_templates.py
-├── requirements.txt
-├── .env
+resume_reviewer/
+├── src/
+│   ├── main.py             # 程式入口與互動流程
+│   ├── document_loader.py  # 讀取 PDF、TXT 與 Markdown
+│   ├── gemini_client.py    # 呼叫 Gemini 分析履歷
+│   ├── prompt_templates.py # 履歷分析提示詞
+│   ├── report_writer.py    # 儲存 Markdown 報告
+│   └── display.py          # 顯示程式標題與使用提示
+├── sample_resume.pdf       # 範例履歷
 └── README.md
 ```
 
----
+## 環境設定
 
-## 安裝
-
-建立虛擬環境：
-
-```bash
-python -m venv .venv
-```
-
-啟動虛擬環境：
-
-Windows PowerShell：
+本專案目前沒有 `requirements.txt`。在儲存庫根目錄啟用 `.venv`，再安裝依賴：
 
 ```powershell
-.venv\Scripts\Activate.ps1
+.\.venv\Scripts\Activate.ps1
+python -m pip install google-genai python-dotenv pypdf
 ```
 
-安裝相依套件：
+在 `resume_reviewer/` 建立 `.env`，填入 Gemini API 金鑰：
 
-```bash
-pip install -r requirements.txt
-pip install google-genai
-pip install python-dotenv
+```dotenv
+GEMINI_API_KEY=你的_Gemini_API金鑰
 ```
 
----
-
-## 建立 `.env`
-
-```env
-GEMINI_API_KEY=你的_API_Key
-```
-
----
+請勿將 `.env` 或 API 金鑰提交至版本控制。
 
 ## 執行
 
-```bash
-python main.py
+從儲存庫根目錄切換到專案資料夾後執行：
+
+```powershell
+Set-Location resume_reviewer
+python src/main.py
 ```
 
----
-
-## 執行流程
+在提示中輸入履歷檔案路徑，例如：
 
 ```text
-輸入檔案
-
-↓
-
-自動判斷副檔名
-
-↓
-
-TXT Reader / PDF Reader
-
-↓
-
-Gemini AI
-
-↓
-
-Markdown Report
+sample_resume.pdf
 ```
 
----
+路徑以目前工作目錄（此處為 `resume_reviewer/`）為準。輸入 `exit` 可離開。分析完成後，程式會在目前工作目錄建立或覆寫 `review_result.md`。
 
-## 使用方式
+## 分析流程
 
-啟動程式後，可以：
+1. 依副檔名選擇 PDF 或純文字讀取方式。
+2. 擷取履歷文字並送交 Gemini。
+3. Gemini 依提示詞產生履歷評估。
+4. 將結果寫入 Markdown 報告。
 
-### 方法一：分析履歷檔案
+## 使用技術與學習重點
 
-```text
-resume.txt
-```
+- Python 模組化設計與檔案處理
+- PDF 文字擷取（`pypdf`）
+- Gemini API、環境變數與 Prompt Engineering
+- Markdown 報告輸出及例外處理
 
-或
+## 限制與隱私提醒
 
-```text
-resume.md
-```
-
-### 方法二：直接貼上履歷內容
-
-```text
-學歷：
-逢甲大學 行銷系
-
-工作經驗：
-Apple 門市銷售三年
-
-技能：
-Python
-Git
-Excel
-```
-
-AI 會分析履歷並產生：
-
-```text
-review_result.md
-```
-
----
-
-## 使用技術
-
-- Python 3
-- Google Gemini API
-- google-genai
-- python-dotenv
-- pypdf
-
----
-
-## 學習重點
-
-本專案練習了：
-
-- 模組化設計
-- Prompt Engineering
-- 檔案讀取
-- API 串接
-- Exception Handling
-- Markdown 報告輸出
-
----
-
-## 未來規劃
-
-- [v] 支援 PDF 履歷
-- [ ] 支援 DOCX 履歷
-- [ ] 自訂輸出檔名
-- [ ] 串流（Streaming）回覆
-- [ ] GUI 版本
-- [ ] Web 版本（FastAPI / Streamlit）
+- 目前只能輸入檔案路徑，尚未實作直接貼上履歷文字的輸入流程。
+- PDF 以文字擷取方式處理；掃描影像型 PDF 沒有 OCR，可能無法讀取。
+- 履歷內容會傳送至 Gemini API 進行分析。請只使用你有權處理的資料，並先移除不必要的個人資訊。
+- `review_result.md` 可能包含履歷個資；分享或提交前請先檢查。再次執行會覆寫工作目錄中同名的報告。
+- AI 分析僅供參考，不能取代專業履歷顧問或招募決策。

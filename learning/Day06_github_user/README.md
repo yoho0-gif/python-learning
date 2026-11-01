@@ -34,7 +34,7 @@
 ## 專案結構
 
 ```
-day06_github_user/
+learning/Day06_github_user/
 │
 ├── main.py          # 主程式
 ├── github_api.py    # GitHub API 呼叫

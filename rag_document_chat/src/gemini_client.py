@@ -8,7 +8,7 @@ client = genai.Client(api_key=API_KEY)
 
 def ask_ai(history, system_prompt):
     response = client.models.generate_content(
-        model="gemini-3.5-flash", 
+        model="gemini-3.6-flash", 
         contents=history,
         config=types.GenerateContentConfig(
             system_instruction=system_prompt

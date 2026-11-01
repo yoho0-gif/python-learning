@@ -1,6 +1,12 @@
 rag_document_chat/src/.env
+github_profile_analyzer/.env
+resume_reviewer/.env
+github_profile_analyzer/github_analysis.md
+resume_reviewer/review_result.md
 rag_document_chat/faiss_texts.json
 rag_document_chat/faiss_index.bin
 rag_document_chat/vector.json
 .venv
 .note.md
+__pycache__/
+*.py[cod]

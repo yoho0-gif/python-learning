@@ -60,6 +60,10 @@ Python 與 AI 應用開發學習作品集，記錄從 Python 基礎、API 整合
 
 [View Project](./resume_reviewer)
 
+## Learning Exercises
+
+早期 Python 基礎與 API 練習集中整理於 [`learning/`](./learning/)，依原本的 Day 資料夾分類，保留各階段的練習檔案。
+
 ## Technical Skills
 
 - **Language:** Python
