@@ -76,7 +76,13 @@ python rag_document_chat/src/main.py
 
 ## 評估模組
 
-`src/evaluation/` 與 `src/evaluation_api.py` 包含 RAG 回答及引用評估相關程式，與上述互動式聊天入口分開；這些功能仍在開發中，尚未整合成主程式的一部分。
+`src/evaluation/` 與 `src/evaluation_api.py` 包含 RAG 回答及引用評估 API，與上述互動式聊天入口分開。從儲存庫根目錄啟動 API：
+
+```powershell
+python -m uvicorn --app-dir rag_document_chat/src evaluation_api:app --reload
+```
+
+啟動後可在 `http://127.0.0.1:8000/docs` 查看互動式 API 文件。這些功能仍在開發中，尚未整合成主程式的一部分。
 
 ## 注意事項與限制
 

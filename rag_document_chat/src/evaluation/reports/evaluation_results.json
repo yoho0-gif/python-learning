@@ -1,0 +1,47 @@
+{
+  "summary": {
+    "total_cases": 3,
+    "metrics": {
+      "answer_relevance": {
+        "evaluated_cases": 2,
+        "average_score": 4.5
+      },
+      "faithfulness": {
+        "evaluated_cases": 2,
+        "average_score": 0.9
+      },
+      "context_relevance": {
+        "evaluated_cases": 2,
+        "average_score": 0.8
+      },
+      "citation_validity": {
+        "evaluated_cases": 3,
+        "average_score": 0.5
+      }
+    }
+  },
+  "results": [
+    {
+      "question": "勞工正常工作時間一天最多幾小時？",
+      "answer_relevance": 5,
+      "faithfulness": 1.0,
+      "context_relevance": 0.9,
+      "citation_validity": 1.0
+    },
+    {
+      "question": "勞工一週正常工作時間最多幾小時？",
+      "answer_relevance": 4,
+      "faithfulness": 0.8,
+      "context_relevance": 0.7,
+      "citation_validity": 0.5
+    },
+    {
+      "question": "超出正常工時如何處理？",
+      "answer_relevance": null,
+      "faithfulness": null,
+      "context_relevance": null,
+      "citation_validity": 0.0,
+      "error": "尚未執行模型評估"
+    }
+  ]
+}

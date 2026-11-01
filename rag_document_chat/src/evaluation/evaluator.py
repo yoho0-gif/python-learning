@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 from google import genai
-from src.config import API_KEY
+from config import API_KEY
 
 
 client = genai.Client(api_key=API_KEY)

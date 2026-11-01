@@ -5,12 +5,11 @@ from pydantic import BaseModel, Field
 from google import genai
 from google.genai import types
 
-from src.config import API_KEY
+from config import API_KEY
 
 
 client = genai.Client(api_key=API_KEY)
 
-# 請使用你目前環境支援的 Gemini 模型名稱。
 MODEL_NAME = "gemini-3.6-flash"
 
 
